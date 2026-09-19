@@ -19,15 +19,12 @@ GitHub запросит логин/пароль — вводите логин и
 (создаётся: GitHub → Settings → Developer settings → Personal access tokens →
 Generate new token (classic) → отметьте `repo`). Пароль от аккаунта не подойдёт.
 
-Перед пушем поменяйте подпись коммитов на свою (один раз):
+Перед пушем настройте подпись коммитов (один раз):
 
 ```powershell
 & "C:\Users\08DE~1\AppData\Local\Temp\opencode\mingit\cmd\git.exe" config user.name "Ваше Имя"
 & "C:\Users\08DE~1\AppData\Local\Temp\opencode\mingit\cmd\git.exe" config user.email "ваш@email"
 ```
-
-(текущая подпись в репозитории — временная заглушка; можно также перезаписать:
-`git commit --amend --reset-author`)
 
 ## Шаг 2. Задеплойте на Streamlit Cloud
 

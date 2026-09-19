@@ -10,15 +10,15 @@ _SRC = Path(__file__).resolve().parents[1]
 if str(_SRC) not in sys.path:
     sys.path.insert(0, str(_SRC))
 
-from fuelloop.core import (  # noqa: E402
+from fuelloop.core import (
     apply_scenario,
     load_dataset,
     load_plan,
     load_scenarios,
     run,
 )
-from fuelloop.core.risks import build_risk_register, monte_carlo, sensitivity_analysis  # noqa: E402
-from fuelloop.io_layer.exporters import export_all  # noqa: E402
+from fuelloop.core.risks import build_risk_register, monte_carlo, sensitivity_analysis
+from fuelloop.io_layer.exporters import export_all
 
 
 def main(argv=None) -> int:
