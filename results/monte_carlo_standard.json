@@ -1,0 +1,14 @@
+{
+  "n": 1000,
+  "seed": 42,
+  "distributions": "спрос N(1.0, 0.06) с обрезкой >=0.8; доля ISRU triangular(base-0.25, base, base+0.10); цены A/B в стандартном сценарии U(1.0, 1.25) в 2038-2039",
+  "p_deficit_positive": 0.36,
+  "p_service_total_below_097": 0.306,
+  "p_service_critical_below_099": 0.0,
+  "deficit_p50": 0.0,
+  "deficit_p90": 81.63563115766868,
+  "deficit_p99": 146.633079397478,
+  "npv_p50": 8252.783370283913,
+  "npv_p90": 8452.691758203344,
+  "npv_p99": 8611.461020504716
+}

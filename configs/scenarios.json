@@ -1,0 +1,35 @@
+{
+  "standard": {
+    "kind": "standard",
+    "base_demand_variant": "base",
+    "changes": []
+  },
+  "stress": {
+    "kind": "stress",
+    "base_demand_variant": "base",
+    "changes": [
+      {"type": "demand_multiplier", "years": [2038, 2039, 2040], "value": 1.15},
+      {"type": "price_multiplier", "channels": ["A_earth_core", "B_earth_flex"], "years": [2038, 2039], "value": 1.25},
+      {"type": "isru_actual_share", "shares_by_year": {"2038": 0.55, "2039": 0.75, "2040": 1.0}},
+      {"type": "loss_rate_cap", "years": [2038, 2039, 2040], "value": 0.02}
+    ]
+  },
+  "low_demand": {
+    "kind": "custom",
+    "base_demand_variant": "low",
+    "changes": []
+  },
+  "high_demand": {
+    "kind": "custom",
+    "base_demand_variant": "high",
+    "changes": []
+  },
+  "custom_geopolitics": {
+    "kind": "custom",
+    "base_demand_variant": "base",
+    "changes": [
+      {"type": "channel_disable", "channel": "A_earth_core", "years": [2037, 2038]},
+      {"type": "price_multiplier", "channels": ["B_earth_flex", "E_emergency"], "years": [2037, 2038, 2039], "value": 1.2}
+    ]
+  }
+}

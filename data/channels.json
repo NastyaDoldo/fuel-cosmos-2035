@@ -1,0 +1,63 @@
+{
+  "A_earth_core": {
+    "name": "A Earth-Core (долгосрочный)",
+    "capacity_t_per_year": 190,
+    "var_cost_mln_per_t": 6.2,
+    "reserve_rate_mln_per_t": 0.45,
+    "take_or_pay_share": 0.70,
+    "lead_time_months": 12,
+    "reliability_by_year": {"default": 0.96},
+    "start_year": 2035,
+    "requires_investment": null,
+    "max_consecutive_base_years": null
+  },
+  "B_earth_flex": {
+    "name": "B Earth-Flex (гибкий)",
+    "capacity_t_per_year": 110,
+    "var_cost_mln_per_t": 8.9,
+    "reserve_rate_mln_per_t": 0.15,
+    "take_or_pay_share": 0.0,
+    "lead_time_months": 4,
+    "reliability_by_year": {"default": 0.985},
+    "start_year": 2035,
+    "requires_investment": null,
+    "max_consecutive_base_years": null
+  },
+  "C_earth_new": {
+    "name": "C Earth-New (новый поставщик)",
+    "capacity_t_per_year": 130,
+    "var_cost_mln_per_t": 7.1,
+    "reserve_rate_mln_per_t": 0.30,
+    "take_or_pay_share": 0.50,
+    "lead_time_months": 24,
+    "reliability_by_year": {"first_year": 0.88, "default": 0.94},
+    "start_year": 2035,
+    "requires_investment": "earth_new",
+    "max_consecutive_base_years": null
+  },
+  "D_lunar_isru": {
+    "name": "D Lunar-ISRU (лунный)",
+    "capacity_t_per_year": 120,
+    "var_cost_mln_per_t": 3.0,
+    "reserve_rate_mln_per_t": 0.0,
+    "take_or_pay_share": 0.0,
+    "lead_time_months": 2,
+    "reliability_by_year": {"2038": 0.78, "2039": 0.90, "2040": 0.93},
+    "start_year": 2038,
+    "requires_investment": "lunar_isru",
+    "max_consecutive_base_years": null
+  },
+  "E_emergency": {
+    "name": "E Emergency (аварийный/спот)",
+    "capacity_t_per_year": 80,
+    "var_cost_mln_per_t": 13.8,
+    "reserve_rate_mln_per_t": 0.35,
+    "take_or_pay_share": 0.0,
+    "lead_time_months": 1.5,
+    "reliability_by_year": {"default": 0.995},
+    "start_year": 2035,
+    "requires_investment": null,
+    "max_consecutive_base_years": 2,
+    "note": "Резерв мощности в контракте; нельзя базовый канал более 2 лет подряд; активация ~6 недель (42 дня)"
+  }
+}

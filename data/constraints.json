@@ -1,0 +1,14 @@
+{
+  "min_service_critical": 0.99,
+  "min_service_total": 0.97,
+  "capex_limit_by_2037_mln": 1800.0,
+  "capex_limit_total_mln": 2800.0,
+  "capex_limit_year_1": 2037,
+  "reserve_days": 45,
+  "days_per_year": 365,
+  "steps_per_year": 12,
+  "emergency_max_consecutive_years": 2,
+  "emergency_activation_days": 42,
+  "serving_policy": "critical_first",
+  "discount_rate_real": 0.10
+}

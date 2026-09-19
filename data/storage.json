@@ -1,0 +1,16 @@
+{
+  "base_storage": {
+    "capacity_t": 70,
+    "capex_mln": 0.0,
+    "loss_rate": 0.045,
+    "storage_cost_mln_per_t_year": 0.72
+  },
+  "zbo": {
+    "capex_mln": 180.0,
+    "available_from": 2036,
+    "lead_years": 1.0,
+    "capacity_after_t": 120,
+    "loss_rate_after": 0.012,
+    "extra_opex_mln_per_year": 12.0
+  }
+}

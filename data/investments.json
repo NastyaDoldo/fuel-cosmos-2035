@@ -1,0 +1,14 @@
+{
+  "lunar_isru": {
+    "capex_total_mln": 1250.0,
+    "funding_deadline_year": 2037,
+    "start_year": 2038,
+    "extra_opex_mln_per_year": 70.0
+  },
+  "earth_new": {
+    "option_fee_mln": 90.0,
+    "exercise_mln": 270.0,
+    "lead_time_months": 24,
+    "capacity_t_per_year": 130
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "plan_id": "baseline_v1",
+  "description": "Базовый план: A Earth-Core как основа, буферы через B, Lunar-ISRU с 2038 (CAPEX 625+625 в 2036-2037), ZBO-модернизация (оплата 2036, ввод 2037), E в режиме резерва с 2038",
+  "initial_stock": {
+    "volume_t": 12.33,
+    "source_channel": "B_earth_flex",
+    "delivery_date": "2034-12-20",
+    "payment_time": 0.0
+  },
+  "years": {
+    "2035": {
+      "channels": {
+        "A_earth_core": {
+          "reserved_t": 100,
+          "ordered_t": 100
+        },
+        "B_earth_flex": {
+          "reserved_t": 10,
+          "ordered_t": 10
+        }
+      },
+      "investments": {
+        "zbo_pay_mln": 0,
+        "isru_pay_mln": 0,
+        "earth_new_option_mln": 0,
+        "earth_new_exercise_mln": 0
+      },
+      "emergency_role": "none"
+    },
+    "2036": {
+      "channels": {
+        "A_earth_core": {
+          "reserved_t": 140,
+          "ordered_t": 140
+        },
+        "B_earth_flex": {
+          "reserved_t": 13,
+          "ordered_t": 13
+        }
+      },
+      "investments": {
+        "zbo_pay_mln": 180,
+        "isru_pay_mln": 625,
+        "earth_new_option_mln": 0,
+        "earth_new_exercise_mln": 0
+      },
+      "emergency_role": "none"
+    },
+    "2037": {
+      "channels": {
+        "A_earth_core": {
+          "reserved_t": 190,
+          "ordered_t": 190
+        },
+        "B_earth_flex": {
+          "reserved_t": 10,
+          "ordered_t": 10
+        }
+      },
+      "investments": {
+        "zbo_pay_mln": 0,
+        "isru_pay_mln": 625,
+        "earth_new_option_mln": 0,
+        "earth_new_exercise_mln": 0
+      },
+      "emergency_role": "none"
+    },
+    "2038": {
+      "channels": {
+        "A_earth_core": {
+          "reserved_t": 190,
+          "ordered_t": 190
+        },
+        "B_earth_flex": {
+          "reserved_t": 12,
+          "ordered_t": 12
+        },
+        "D_lunar_isru": {
+          "reserved_t": 60,
+          "ordered_t": 60
+        },
+        "E_emergency": {
+          "reserved_t": 10,
+          "ordered_t": 0
+        }
+      },
+      "investments": {
+        "zbo_pay_mln": 0,
+        "isru_pay_mln": 0,
+        "earth_new_option_mln": 0,
+        "earth_new_exercise_mln": 0
+      },
+      "emergency_role": "reserve"
+    },
+    "2039": {
+      "channels": {
+        "A_earth_core": {
+          "reserved_t": 190,
+          "ordered_t": 190
+        },
+        "B_earth_flex": {
+          "reserved_t": 23,
+          "ordered_t": 23
+        },
+        "D_lunar_isru": {
+          "reserved_t": 120,
+          "ordered_t": 120
+        },
+        "E_emergency": {
+          "reserved_t": 10,
+          "ordered_t": 0
+        }
+      },
+      "investments": {
+        "zbo_pay_mln": 0,
+        "isru_pay_mln": 0,
+        "earth_new_option_mln": 0,
+        "earth_new_exercise_mln": 0
+      },
+      "emergency_role": "reserve"
+    },
+    "2040": {
+      "channels": {
+        "A_earth_core": {
+          "reserved_t": 190,
+          "ordered_t": 190
+        },
+        "B_earth_flex": {
+          "reserved_t": 85,
+          "ordered_t": 85
+        },
+        "D_lunar_isru": {
+          "reserved_t": 120,
+          "ordered_t": 120
+        },
+        "E_emergency": {
+          "reserved_t": 10,
+          "ordered_t": 0
+        }
+      },
+      "investments": {
+        "zbo_pay_mln": 0,
+        "isru_pay_mln": 0,
+        "earth_new_option_mln": 0,
+        "earth_new_exercise_mln": 0
+      },
+      "emergency_role": "reserve"
+    }
+  }
+}

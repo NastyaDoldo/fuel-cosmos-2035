@@ -1,0 +1,3 @@
+﻿scenario,expenses_total_mln,expenses_npv_mln,capex_total_mln,deficit_total_t,min_service_total,min_service_critical,hard_violations,stress_findings
+standard,10923.68,8023.38,1430.0,0.0,1.0,1.0,0,0
+stress,11498.47,8419.46,1430.0,151.1,0.8135,1.0,0,5
