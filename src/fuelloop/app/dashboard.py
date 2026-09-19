@@ -89,6 +89,7 @@ def edit_plan() -> dict:
                                         float(cur.get("ordered_t", 0.0)), 1.0,
                                         key=f"{y}_{cid}_o", label_visibility="collapsed")
                     chs[cid] = {"reserved_t": r, "ordered_t": o}
+            chs = {cid: v for cid, v in chs.items() if v["reserved_t"] > 0 or v["ordered_t"] > 0}
             st.markdown("**Инвестиции в этом году, млн у.е.**")
             inv = py.get("investments", {})
             i1, i2, i3, i4 = st.columns(4)
