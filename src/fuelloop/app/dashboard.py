@@ -140,14 +140,19 @@ tab_overview, tab_scen, tab_checks, tab_risks, tab_export = st.tabs(
     ["Обзор", "Сценарии", "Проверки", "Риски и анализы", "Экспорт"])
 
 
-def pick() -> tuple[str, dict]:
+def pick(tab_key: str) -> tuple[str, dict]:
     primary = "stress" if "stress" in results else next(iter(results))
-    sel = st.selectbox("Сценарий в этой вкладке", list(results), index=list(results).index(primary))
+    sel = st.selectbox(
+        "Сценарий в этой вкладке",
+        list(results),
+        index=list(results).index(primary),
+        key=f"pick_{tab_key}",
+    )
     return sel, results[sel]
 
 
 with tab_overview:
-    sel, res = pick()
+    sel, res = pick("overview")
     t = res["totals"]
     m = st.columns(6)
     m[0].metric("NPV расходов, млн", f"{t['expenses_npv']:.0f}")
@@ -187,7 +192,7 @@ with tab_scen:
                "99%/97% в стрессе — ориентиры устойчивости; дефицит показывается честно.")
 
 with tab_checks:
-    sel, res = pick()
+    sel, res = pick("checks")
     st.subheader(f"Проверки ограничений — {sel}")
     chf = results_to_frames(res)["checks"]
     bad = chf[~chf["ok"]]
