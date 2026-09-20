@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Топливный космоконтур 2035 — презентация</title>
+<style>
+:root{
+  --bg:#070b18; --bg2:#0c1330; --ink:#eaf1ff; --dim:#9fb0d8;
+  --sky:#7dd3fc; --vio:#a78bfa; --amber:#fbbf24; --green:#34d399; --red:#f87171;
+  --card:rgba(255,255,255,.045); --line:rgba(125,211,252,.22);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#02040a;overflow:hidden;font-family:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;color:var(--ink)}
+#stage{position:fixed;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;
+  background:radial-gradient(1200px 800px at 75% -10%,rgba(125,211,252,.10),transparent 60%),
+             radial-gradient(1000px 700px at 10% 110%,rgba(167,139,250,.10),transparent 60%),
+             linear-gradient(160deg,var(--bg) 0%,var(--bg2) 100%);
+  box-shadow:0 0 120px rgba(125,211,252,.08)}
+.slide{position:absolute;inset:0;padding:90px 110px 130px;display:none;flex-direction:column}
+.slide.active{display:flex}
+.a{opacity:0;transform:translateY(36px)}
+.active .a{animation:rise .65s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes rise{to{opacity:1;transform:none}}
+.kicker{font-size:26px;letter-spacing:.32em;text-transform:uppercase;color:var(--sky);font-weight:600}
+h1{font-size:104px;line-height:1.04;font-weight:800}
+h2{font-size:64px;line-height:1.08;font-weight:750;margin-top:14px}
+.sub{font-size:30px;color:var(--dim);line-height:1.45}
+.accent{background:linear-gradient(90deg,var(--sky),var(--vio));-webkit-background-clip:text;background-clip:text;color:transparent}
+.g{color:var(--green)}.y{color:var(--amber)}.r{color:var(--red)}.s{color:var(--sky)}.v{color:var(--vio)}
+.row{display:flex;gap:36px}.col{flex:1;display:flex;flex-direction:column;gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:34px 38px}
+.card h3{font-size:33px;margin-bottom:12px;font-weight:700}
+.card p{font-size:27px;color:var(--dim);line-height:1.42}
+.num{font-size:64px;font-weight:800;line-height:1}
+.big{font-size:88px;font-weight:800;line-height:1}
+table{border-collapse:collapse;width:100%}
+th{font-size:26px;color:var(--sky);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:14px 22px;border-bottom:2px solid var(--line)}
+td{font-size:29px;padding:16px 22px;border-bottom:1px solid rgba(255,255,255,.08)}
+td.n{font-variant-numeric:tabular-nums;font-weight:700}
+tr.win td{background:rgba(52,211,153,.07)}
+tr.bad td{background:rgba(248,113,113,.07)}
+.bars{display:flex;align-items:flex-end;gap:46px;height:520px;padding:0 10px}
+.bwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:14px;height:100%;justify-content:flex-end}
+.bar{width:100%;border-radius:14px 14px 4px 4px;height:0;transition:height 1.3s cubic-bezier(.2,.7,.2,1) var(--bd,.35s);background:linear-gradient(180deg,var(--sky),rgba(125,211,252,.25))}
+.bar.cr{background:linear-gradient(180deg,var(--vio),rgba(167,139,250,.25))}
+.active .bar{height:var(--h)}
+.bv{font-size:30px;font-weight:700}
+.bl{font-size:26px;color:var(--dim)}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:30px}
+.fnode{flex:1;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:28px;text-align:center}
+.fnode h4{font-size:31px;margin-bottom:8px}
+.fnode p{font-size:24px;color:var(--dim);line-height:1.35}
+.farrow{display:flex;align-items:center;padding:0 14px;font-size:44px;color:var(--sky);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{transform:translateX(8px);opacity:.65}}
+.tl{position:relative;padding-left:46px;display:flex;flex-direction:column;gap:26px}
+.tl::before{content:"";position:absolute;left:12px;top:8px;bottom:8px;width:4px;border-radius:4px;
+  background:linear-gradient(180deg,var(--sky),var(--vio));transform:scaleY(0);transform-origin:top;transition:transform 1.4s ease .3s}
+.active .tl::before{transform:scaleY(1)}
+.tl .it{position:relative}
+.tl .it::before{content:"";position:absolute;left:-46px;top:10px;width:22px;height:22px;border-radius:50%;
+  background:var(--bg);border:4px solid var(--sky)}
+.chips{display:flex;gap:18px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:999px;padding:12px 28px;font-size:27px;color:var(--dim)}
+.chip b{color:var(--ink)}
+#nav{position:fixed;z-index:9;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:12px;align-items:center}
+.dot{width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.18);cursor:pointer;transition:.3s}
+.dot.on{background:var(--sky);box-shadow:0 0 12px var(--sky);transform:scale(1.25)}
+#hud{position:fixed;z-index:9;right:34px;bottom:20px;font-size:24px;color:var(--dim);font-variant-numeric:tabular-nums}
+#hint{position:fixed;z-index:9;left:34px;bottom:20px;font-size:24px;color:var(--dim)}
+#prog{position:fixed;z-index:9;top:0;left:0;height:6px;width:0;background:linear-gradient(90deg,var(--sky),var(--vio));transition:width .45s ease;box-shadow:0 0 14px rgba(125,211,252,.7)}
+.arrow{position:fixed;z-index:9;top:50%;transform:translateY(-50%);font-size:60px;color:var(--dim);background:rgba(255,255,255,.04);
+  border:1px solid var(--line);width:76px;height:76px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;user-select:none}
+.arrow:hover{color:var(--ink);border-color:var(--sky)}
+#prev{left:26px}#next{right:26px}
+.orbit{position:absolute;border:2px dashed rgba(125,211,252,.28);border-radius:50%;animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pulse-dot{width:16px;height:16px;border-radius:50%;background:var(--green);box-shadow:0 0 18px var(--green);animation:blink 1.6s infinite}
+@keyframes blink{50%{opacity:.35}}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.mrow{display:flex;gap:30px}
+.mcard{flex:1;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:32px 36px}
+.mcard .lb{font-size:25px;color:var(--dim);margin-bottom:10px;letter-spacing:.04em}
+.mcard .vl{font-size:60px;font-weight:800;font-variant-numeric:tabular-nums}
+.foot{margin-top:auto;font-size:26px;color:var(--dim)}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="slide" style="justify-content:center">
+  <div class="orbit" style="width:820px;height:820px;right:-160px;top:-200px"></div>
+  <div class="orbit" style="width:520px;height:520px;right:20px;top:20px;animation-duration:18s"></div>
+  <div class="a" style="--d:.05s"><div class="kicker">КосмоХакатон 2026 · кейс</div></div>
+  <div class="a" style="--d:.15s"><h1>ТОПЛИВНЫЙ<br><span class="accent">КОСМОКОНТУР 2035</span></h1></div>
+  <div class="a" style="--d:.3s"><p class="sub" style="margin-top:26px;max-width:1150px">Цифровой контур планирования снабжения орбитального топливного узла на 2035–2040 годы:<br>материальный баланс, экономика, ограничения и стресс-тесты считает расчётное ядро.</p></div>
+  <div class="a" style="--d:.45s">
+    <div class="chips" style="margin-top:44px">
+      <div class="chip"><b>fuel-cosmos-2035</b>.streamlit.app</div>
+      <div class="chip">github.com/<b>NastyaDoldo</b>/fuel-cosmos-2035</div>
+      <div class="chip"><span class="pulse-dot" style="display:inline-block;vertical-align:middle;margin-right:10px"></span>27 тестов · working demo</div>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Задача оператора</div></div>
+  <div class="a" style="--d:.12s"><h2>Спрос растёт в <span class="accent">3,9 раза</span> за шесть лет</h2></div>
+  <div class="a" style="--d:.25s;margin-top:10px">
+    <div class="bars" style="margin-top:40px">
+      <div class="bwrap"><div class="bv">100</div><div class="bar" style="--h:26%;--bd:.35s"></div><div class="bl">2035</div></div>
+      <div class="bwrap"><div class="bv">140</div><div class="bar" style="--h:36%;--bd:.45s"></div><div class="bl">2036</div></div>
+      <div class="bwrap"><div class="bv">190</div><div class="bar" style="--h:49%;--bd:.55s"></div><div class="bl">2037</div></div>
+      <div class="bwrap"><div class="bv">250</div><div class="bar" style="--h:64%;--bd:.65s"></div><div class="bl">2038</div></div>
+      <div class="bwrap"><div class="bv">320</div><div class="bar" style="--h:82%;--bd:.75s"></div><div class="bl">2039</div></div>
+      <div class="bwrap"><div class="bv">390</div><div class="bar" style="--h:100%;--bd:.85s"></div><div class="bl">2040</div></div>
+      <div class="bwrap"><div class="bv s">250</div><div class="bar cr" style="--h:64%;--bd:.95s"></div><div class="bl">критический 2040</div></div>
+    </div>
+  </div>
+  <div class="a" style="--d:1.0s"><p class="sub" style="margin-top:30px">Общий спрос 100 → 390 т/год, критический 80 → 250 т/год. Земные мощности A+B дают только 300 т/год.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Жёсткие правила кейса</div></div>
+  <div class="a" style="--d:.12s"><h2>Ограничения, которые нельзя обойти</h2></div>
+  <div class="grid2" style="margin-top:44px">
+    <div class="card a" style="--d:.2s"><h3 class="s">Обслуживание спроса</h3><p>≥ <b class="g">99%</b> критического и ≥ <b class="g">97%</b> общего — по каждому году. В стрессе 99/97 — ориентиры: дефицит показываем честно.</p></div>
+    <div class="card a" style="--d:.3s"><h3 class="s">Бюджет инвестиций</h3><p>CAPEX ≤ <b class="y">1800 млн</b> до конца 2037, ≤ <b class="y">2800 млн</b> до 2040. Считаем по датам платежей.</p></div>
+    <div class="card a" style="--d:.4s"><h3 class="s">Безопасность узла</h3><p>Физический запас ≥ <b>45 дней</b> спроса или законтрактованный аварийный резерв с доказанным объёмом и сроком активации.</p></div>
+    <div class="card a" style="--d:.5s"><h3 class="s">Роль Emergency</h3><p>Канал E — <b class="r">не базовый более 2 лет подряд</b>. Ядро считает подрядные годы автоматически.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Решение</div></div>
+  <div class="a" style="--d:.12s"><h2>Цифровой контур: чат-бот не подменяет расчёты</h2></div>
+  <div class="flow" style="margin-top:50px">
+    <div class="fnode a" style="--d:.2s"><h4 class="s">DATA</h4><p>спрос, каналы, хранилище, инвестопции, ограничения — JSON/CSV, не код</p></div>
+    <div class="farrow a" style="--d:.3s">→</div>
+    <div class="fnode a" style="--d:.4s"><h4 class="s">SCENARIOS</h4><p>сценарий = id + список изменений, применяется к копии данных</p></div>
+    <div class="farrow a" style="--d:.5s">→</div>
+    <div class="fnode a" style="--d:.6s"><h4 class="v">CORE</h4><p>помесячный баланс · платежи · проверки · NPV · один вход → один выход</p></div>
+    <div class="farrow a" style="--d:.7s">→</div>
+    <div class="fnode a" style="--d:.8s"><h4 class="g">UI / CLI</h4><p>правка плана без кода · нарушения видны · выгрузки CSV/XLSX</p></div>
+  </div>
+  <div class="mrow" style="margin-top:46px">
+    <div class="mcard a" style="--d:.95s"><div class="lb">Тестов pytest</div><div class="vl g"><b class="cnt" data-to="27" data-dec="0">0</b></div><p class="sub" style="font-size:25px;margin-top:8px">контрольный пример · границы · невыполнимые планы · стресс</p></div>
+    <div class="mcard a" style="--d:1.05s"><div class="lb">Сценариев в модели</div><div class="vl s"><b class="cnt" data-to="5" data-dec="0">0</b></div><p class="sub" style="font-size:25px;margin-top:8px">standard · обязательный stress · низкий/высокий · геополитика</p></div>
+    <div class="mcard a" style="--d:1.15s"><div class="lb">Одинаковость</div><div class="vl v">seed = 42</div><p class="sub" style="font-size:25px;margin-top:8px">Монте-Карло и чувствительность воспроизводимы</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Цепочка поставок</div></div>
+  <div class="a" style="--d:.12s"><h2>Пять каналов снабжения</h2></div>
+  <table style="margin-top:36px">
+    <tr><th>Канал</th><th>Мощность</th><th>Цена, млн/т</th><th>ToP</th><th>Lead</th><th>Надёжность</th></tr>
+    <tr class="a" style="--d:.2s"><td><b>A Earth-Core</b></td><td class="n">190 т</td><td class="n">6,2</td><td class="n">70%</td><td class="n">12 мес</td><td class="n">0,96</td></tr>
+    <tr class="a" style="--d:.28s"><td><b>B Earth-Flex</b></td><td class="n">110 т</td><td class="n">8,9</td><td class="n">—</td><td class="n">4 мес</td><td class="n">0,985</td></tr>
+    <tr class="a" style="--d:.36s"><td><b>C Earth-New</b></td><td class="n">130 т</td><td class="n">7,1</td><td class="n">50%</td><td class="n">18–24 мес</td><td class="n">0,88→0,94</td></tr>
+    <tr class="a" style="--d:.44s"><td><b>D Lunar-ISRU</b></td><td class="n">120 т</td><td class="n g">3,0</td><td class="n">—</td><td class="n">1–2 мес</td><td class="n">0,78→0,93</td></tr>
+    <tr class="a" style="--d:.52s"><td><b>E Emergency</b></td><td class="n">80 т</td><td class="n r">13,8</td><td class="n">резерв</td><td class="n">6 недель</td><td class="n">0,995</td></tr>
+  </table>
+  <div class="a" style="--d:.62s"><p class="sub" style="margin-top:28px">Инвестопции: <b>ZBO</b> — 180 млн (ёмкость 120 т, потери 4,5%→1,2%) · <b>Lunar-ISRU</b> — CAPEX 1250 до 2038 · <b>Earth-New</b> — опцион 90 + 270 млн.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Стратегия</div></div>
+  <div class="a" style="--d:.12s"><h2>Дешёвая база, гибкая страховка, инвестиции до пика</h2></div>
+  <div class="grid2" style="margin-top:40px">
+    <div class="card a" style="--d:.2s"><h3><span class="s">1 · A — основа</span></h3><p>Самая дешёвая тонна (6,65 с резервом). Несёт 100 → 190 т/год, ToP-минимум не активируется сверх отбора.</p></div>
+    <div class="card a" style="--d:.3s"><h3><span class="g">2 · B — буфер 45 дней</span></h3><p>Дозаказ 10–85 т/год ровно под резерв: запас на 1 января каждого года ≥ спрос × 45/365.</p></div>
+    <div class="card a" style="--d:.4s"><h3><span class="v">3 · ZBO + ISRU до пика</span></h3><p>ZBO: оплата 2036 → ввод 2037 (потери ×3,75 меньше). ISRU: транши 625+625 к дедлайну 2037 → ввод 2038, когда A+B уже не хватает.</p></div>
+    <div class="card a" style="--d:.5s"><h3><span class="y">4 · Хеджирование</span></h3><p>E — только резерв (правило 2 лет), 10 т/год с 2038. Опцион C — 90 млн как страховка от провала ISRU.</p></div>
+  </div>
+  <div class="a" style="--d:.6s"><p class="sub" style="margin-top:34px">Политика дефицита: <b class="g">critical_first</b> — критический спрос обслуживается первым. Стартовый запас 12,33 т — платная закупка у B в t=0.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Экономика платежей</div></div>
+  <div class="a" style="--d:.12s"><h2>Формулы, которые проверяет жюри</h2></div>
+  <div class="col" style="margin-top:44px;gap:26px">
+    <div class="card a" style="--d:.2s"><p style="font-size:30px;color:var(--ink)">Переменный платёж = цена × <b class="s">max(отбор, ToP × резерв периода)</b> · резервный тариф платится отдельно · ToP не удваивается</p></div>
+    <div class="card a" style="--d:.32s"><p style="font-size:30px;color:var(--ink)">Потери = <b class="s">throughput × коэффициент хранилища</b>, один раз · хранение = 0,72 млн/т-год × средневзвешенный запас · шаг — помесячно, 365 дней</p></div>
+    <div class="card a" style="--d:.44s"><p style="font-size:30px;color:var(--ink)">Баланс: запас кон = запас нач + поступление − потери − выдача · <b class="r">дефицит отдельно</b>, запас физически не отрицателен</p></div>
+    <div class="card a" style="--d:.56s"><p style="font-size:30px;color:var(--ink)">NPV расходов: реальная ставка <b class="s">10%</b>, потоки на середину года · надёжность <b class="y">не множит объёмы</b> — она в реестре рисков</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Результат · стандартный сценарий</div></div>
+  <div class="a" style="--d:.12s"><h2>Все ограничения выполнены</h2></div>
+  <div class="mrow" style="margin-top:42px">
+    <div class="mcard a" style="--d:.22s"><div class="lb">NPV расходов, млн</div><div class="vl accent"><b class="cnt" data-to="8023" data-dec="0">0</b></div></div>
+    <div class="mcard a" style="--d:.32s"><div class="lb">CAPEX, млн (лимит 2800)</div><div class="vl g"><b class="cnt" data-to="1430" data-dec="0">0</b></div></div>
+    <div class="mcard a" style="--d:.42s"><div class="lb">Обслуживание</div><div class="vl g">100% / 100%</div></div>
+    <div class="mcard a" style="--d:.52s"><div class="lb">Дефицит, т</div><div class="vl g">0</div></div>
+  </div>
+  <table style="margin-top:38px">
+    <tr><th>Год</th><th>Спрос</th><th>Потери</th><th>Запас кон.</th><th>Резерв 45 дн.</th><th>CAPEX накопл.</th><th>Расходы, млн</th></tr>
+    <tr class="a" style="--d:.6s"><td>2035</td><td class="n">100</td><td class="n">4,95</td><td class="n">17,4</td><td class="n g">physical</td><td class="n">0</td><td class="n">769</td></tr>
+    <tr class="a" style="--d:.66s"><td>2037</td><td class="n">190</td><td class="n">2,40</td><td class="n">31,1</td><td class="n g">physical</td><td class="n">1430</td><td class="n">2017</td></tr>
+    <tr class="a" style="--d:.72s"><td>2039</td><td class="n">320</td><td class="n">4,00</td><td class="n">49,0</td><td class="n g">physical</td><td class="n">1430</td><td class="n">1959</td></tr>
+    <tr class="a" style="--d:.78s"><td>2040</td><td class="n">390</td><td class="n">4,74</td><td class="n">49,2</td><td class="n g">physical</td><td class="n">1430</td><td class="n">2525</td></tr>
+  </table>
+  <div class="a" style="--d:.9s"><p class="sub" style="margin-top:24px">Жёстких нарушений: <b class="g">0</b>. Полная таблица по годам — results/plan_standard.csv.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Обязательный стресс-тест</div></div>
+  <div class="a" style="--d:.12s"><h2>Единый для всех команд шок</h2></div>
+  <div class="grid2" style="margin-top:44px">
+    <div class="card a" style="--d:.2s"><h3 class="r">Спрос +15%</h3><p>2038–2040: 287,5 / 368 / 448,5 т. Критический спрос растёт пропорционально.</p></div>
+    <div class="card a" style="--d:.3s"><h3 class="r">Цены A/B +25%</h3><p>2038–2039: Earth-Core 6,2 → 7,75 млн/т. Доп. расходы ≈ +396 млн NPV.</p></div>
+    <div class="card a" style="--d:.4s"><h3 class="r">Провал ISRU</h3><p>Фактические доли от плана: <b>55% / 75% / 100%</b> в 2038/39/40 — без возврата платежей и без повторного умножения на надёжность.</p></div>
+    <div class="card a" style="--d:.5s"><h3 class="y">Предел потерь ≤ 2%</h3><p>Достигается только с ZBO (1,2%). План не менялся задним числом — дефицит показываем как есть.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Результат · стресс</div></div>
+  <div class="a" style="--d:.12s"><h2>Критический спрос защищён — дефицит честный</h2></div>
+  <div class="mrow" style="margin-top:42px">
+    <div class="mcard a" style="--d:.22s"><div class="lb">NPV стресса, млн</div><div class="vl accent"><b class="cnt" data-to="8419" data-dec="0">0</b></div></div>
+    <div class="mcard a" style="--d:.32s"><div class="lb">Дефицит 2038–2040, т</div><div class="vl y"><b class="cnt" data-to="151.1" data-dec="1">0</b></div></div>
+    <div class="mcard a" style="--d:.42s"><div class="lb">Критический спрос</div><div class="vl g">100%</div></div>
+    <div class="mcard a" style="--d:.52s"><div class="lb">Жёстких нарушений</div><div class="vl g">0</div></div>
+  </div>
+  <div class="bars" style="height:330px;margin-top:44px">
+    <div class="bwrap"><div class="bv">91,6%</div><div class="bar" style="--h:92%;--bd:.6s"></div><div class="bl">2038 · дефицит 24,2</div></div>
+    <div class="bwrap"><div class="bv y">81,3%</div><div class="bar" style="--h:81%;--bd:.75s;background:linear-gradient(180deg,var(--amber),rgba(251,191,36,.25))"></div><div class="bl">2039 · дефицит 68,6</div></div>
+    <div class="bwrap"><div class="bv">87,0%</div><div class="bar" style="--h:87%;--bd:.9s"></div><div class="bl">2040 · дефицит 58,2</div></div>
+  </div>
+  <div class="a" style="--d:1.05s"><p class="sub" style="margin-top:26px">Обслуживание общего спроса по годам стресса. Резерв-2038 покрыт контрактом E; в 2039–2040 запас выгорает — зафиксировано как сигнал оператору.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Одна база данных, один план</div></div>
+  <div class="a" style="--d:.12s"><h2>Сравнение сценариев</h2></div>
+  <table style="margin-top:40px">
+    <tr><th>Сценарий</th><th>NPV, млн</th><th>CAPEX, млн</th><th>Дефицит, т</th><th>Мин. обслуживание</th><th>Нарушения</th></tr>
+    <tr class="a win" style="--d:.22s"><td><b>standard</b></td><td class="n">8023</td><td class="n">1430</td><td class="n g">0</td><td class="n">100% / 100%</td><td class="n g">0</td></tr>
+    <tr class="a" style="--d:.32s"><td><b>stress</b></td><td class="n">8419</td><td class="n">1430</td><td class="n y">151,1</td><td class="n">81,3% / 100%</td><td class="n g">0</td></tr>
+    <tr class="a" style="--d:.42s"><td><b>custom_geopolitics</b></td><td class="n">—</td><td class="n">1430</td><td class="n">A отключён 2037–38</td><td class="n">пересчёт по кнопке</td><td class="n">—</td></tr>
+  </table>
+  <div class="a" style="--d:.55s"><p class="sub" style="margin-top:34px">Разница NPV ≈ <b class="y">396 млн</b> — цена шока. Сценарии применяются к копии данных: исходники не мутируются, сравнение на одной базе.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Сравнение стратегий</div></div>
+  <div class="a" style="--d:.12s"><h2>Альтернативы посчитаны, а не обсуждены</h2></div>
+  <table style="margin-top:40px">
+    <tr><th>Стратегия</th><th>NPV стандарт</th><th>CAPEX, млн</th><th>Стандарт</th><th>Стресс</th></tr>
+    <tr class="a win" style="--d:.22s"><td><b>A+B+ISRU+ZBO</b> (базовый)</td><td class="n">8023</td><td class="n">1430</td><td class="n g">100%</td><td class="n">81,3%</td></tr>
+    <tr class="a bad" style="--d:.3s"><td>Без ISRU (только A+B)</td><td class="n">невыполним</td><td class="n">180</td><td class="n r">65,8%</td><td class="n r">57,2%</td></tr>
+    <tr class="a" style="--d:.38s"><td>Без ZBO</td><td class="n">7802</td><td class="n">1250</td><td class="n y">2 нарушения</td><td class="n">80,7%</td></tr>
+    <tr class="a" style="--d:.46s"><td>C вместо ISRU</td><td class="n">8017</td><td class="n g">540</td><td class="n g">100%</td><td class="n g">87,0%</td></tr>
+  </table>
+  <div class="a" style="--d:.58s"><p class="sub" style="margin-top:34px">C даёт лучший стресс, но дороже в эксплуатации: <b>3,0 против 7,1 млн/т</b> с 2039. Поэтому в базовом плане D, а C — опцион с триггером: ISRU < 80% плана → реализация C.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Устойчивость</div></div>
+  <div class="a" style="--d:.12s"><h2>Монте-Карло: критический спрос защищён в 100% прогонов</h2></div>
+  <div class="mrow" style="margin-top:44px">
+    <div class="mcard a" style="--d:.22s"><div class="lb">Прогонов (seed = 42)</div><div class="vl s"><b class="cnt" data-to="1000" data-dec="0">0</b></div></div>
+    <div class="mcard a" style="--d:.32s"><div class="lb">P(крит. < 99%)</div><div class="vl g">0%</div></div>
+    <div class="mcard a" style="--d:.42s"><div class="lb">P(дефицит > 0)</div><div class="vl y">36%</div></div>
+    <div class="mcard a" style="--d:.52s"><div class="lb">NPV p90, млн</div><div class="vl"><b class="cnt" data-to="8453" data-dec="0">0</b></div></div>
+  </div>
+  <div class="col" style="margin-top:40px;gap:22px">
+    <div class="card a" style="--d:.62s"><p style="font-size:28px">Распределения: спрос N(1,0; 6%) · доля ISRU triangular(base−0,25; base; base+0,10) · цены A/B U(1,0; 1,25)</p></div>
+    <div class="card a" style="--d:.72s"><p style="font-size:28px">Чувствительность: <b class="y">+5% спроса</b> без пересмотра отборов уже даёт дефицит · CAPEX ISRU до 1500 млн остаётся в лимите 1800 (требует траншей) · снижение спроса требует пересчёта буферов (переполнение)</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Реестр рисков</div></div>
+  <div class="a" style="--d:.12s"><h2>Количественный, с мерами и интересами сторон</h2></div>
+  <table style="margin-top:36px">
+    <tr><th>ID</th><th>Риск</th><th>P</th><th>Импакт</th><th>Мера</th></tr>
+    <tr class="a" style="--d:.2s"><td>R1</td><td>Недопоставка ISRU в 1-й год (0,78)</td><td class="n">0,22</td><td class="n">13,2 т / 143 млн</td><td>резерв E, буфер 2037</td></tr>
+    <tr class="a" style="--d:.28s"><td>R2</td><td>Шок ISRU 55/75% (стресс)</td><td class="n">1,0</td><td class="n r">92,9 т / 1282 млн</td><td>опцион C, critical_first</td></tr>
+    <tr class="a" style="--d:.36s"><td>R3</td><td>Удорожание A/B +25%</td><td class="n">0,30</td><td class="n">+396 млн NPV</td><td>фиксация цены в A</td></tr>
+    <tr class="a" style="--d:.44s"><td>R5</td><td>Перерасход CAPEX ISRU +20%</td><td class="n">0,20</td><td class="n">+250 млн</td><td>транши с контрольными точками</td></tr>
+    <tr class="a" style="--d:.52s"><td>R7</td><td>Отключение канала A</td><td class="n">0,10</td><td class="n">сценарий</td><td>диверсификация C/D/E</td></tr>
+  </table>
+  <div class="a" style="--d:.64s"><p class="sub" style="margin-top:26px">Полный реестр — 8 рисков с количественной оценкой: results/risk_register.csv.</p></div>
+</section>
+
+<section class="slide">
+  <div class="a" style="--d:.05s"><div class="kicker">Дорожная карта</div></div>
+  <div class="a" style="--d:.12s"><h2>Решения по годам и финансовый триггер</h2></div>
+  <div class="tl" style="margin-top:44px">
+    <div class="it a" style="--d:.2s"><h3 style="font-size:32px">2035 — контракты и страховка</h3><p class="sub">A 100 т, буфер B, стартовый запас 12,33 т, решение по опциону C (90 млн)</p></div>
+    <div class="it a" style="--d:.32s"><h3 style="font-size:32px">2036–2037 — инвестиции</h3><p class="sub">ZBO 180 + ISRU 625 → второй транш 625 (итог 1250 к дедлайну). CAPEX к 2037: 1430 из 1800</p></div>
+    <div class="it a" style="--d:.44s"><h3 style="font-size:32px">2038 — ввод ISRU</h3><p class="sub">60 т, E в резерве. Мониторинг фактической доли ISRU: <b class="y">три́ггер < 80% → реализация опциона C</b></p></div>
+    <div class="it a" style="--d:.56s"><h3 style="font-size:32px">2039–2040 — пик</h3><p class="sub">ISRU 120 т, B до 85 т; пересмотр буферов под фактическую надёжность лунного канала</p></div>
+  </div>
+</section>
+
+<section class="slide" style="justify-content:center">
+  <div class="orbit" style="width:640px;height:640px;left:-180px;bottom:-260px;animation-duration:22s"></div>
+  <div class="a" style="--d:.05s"><div class="kicker">Итоги</div></div>
+  <div class="a" style="--d:.12s"><h2>Сдаём работающий контур, а не таблицы</h2></div>
+  <div class="mrow" style="margin-top:44px">
+    <div class="mcard a" style="--d:.22s"><div class="lb">Стандарт</div><div class="vl g">100% / 0 т</div><p class="sub" style="font-size:25px;margin-top:10px">NPV 8023 · CAPEX 1430</p></div>
+    <div class="mcard a" style="--d:.32s"><div class="lb">Стресс</div><div class="vl y">100% крит.</div><p class="sub" style="font-size:25px;margin-top:10px">дефицит 151,1 т показан честно</p></div>
+    <div class="mcard a" style="--d:.42s"><div class="lb">Монте-Карло</div><div class="vl g">P = 0%</div><p class="sub" style="font-size:25px;margin-top:10px">критический спрос защищён</p></div>
+    <div class="mcard a" style="--d:.52s"><div class="lb">Тесты</div><div class="vl accent"><b class="cnt" data-to="27" data-dec="0">0</b></div><p class="sub" style="font-size:25px;margin-top:10px">воспроизводимость чисел</p></div>
+  </div>
+  <div class="a" style="--d:.62s">
+    <div class="chips" style="margin-top:46px">
+      <div class="chip"><b>fuel-cosmos-2035</b>.streamlit.app — демо 24/7</div>
+      <div class="chip">github.com/<b>NastyaDoldo</b>/fuel-cosmos-2035</div>
+      <div class="chip">README · ИТОГОВЫЙ_ОТЧЁТ · docs/</div>
+    </div>
+  </div>
+  <div class="a" style="--d:.75s"><h2 style="margin-top:52px">Спасибо! <span class="accent">Вопросы?</span></h2></div>
+</section>
+
+</div>
+
+<div id="prog"></div>
+<div class="arrow" id="prev">‹</div>
+<div class="arrow" id="next">›</div>
+<div id="nav"></div>
+<div id="hud">1 / 16</div>
+<div id="hint">← → или клик · F — во весь экран</div>
+
+<script>
+var slides=[].slice.call(document.querySelectorAll(".slide"));
+var cur=0;
+var nav=document.getElementById("nav");
+slides.forEach(function(s,i){
+  var d=document.createElement("div");
+  d.className="dot";d.onclick=function(){go(i)};
+  nav.appendChild(d);
+});
+var dots=[].slice.call(nav.children);
+
+function fmt(v,dec){
+  var s=v.toFixed(dec===undefined?0:dec);
+  var parts=s.split(".");
+  parts[0]=parts[0].replace(/\B(?=(\d{3})+(?!\d))/g,"\u2009");
+  return parts.join(",");
+}
+function animCounters(slide){
+  [].forEach.call(slide.querySelectorAll(".cnt"),function(el){
+    var to=parseFloat(el.getAttribute("data-to"));
+    var dec=parseInt(el.getAttribute("data-dec")||"0",10);
+    var t0=null,dur=1400;
+    function step(t){
+      if(!t0)t0=t;
+      var p=Math.min((t-t0)/dur,1);
+      var e=1-Math.pow(1-p,3);
+      el.textContent=fmt(to*e,dec);
+      if(p<1)requestAnimationFrame(step);
+    }
+    el.textContent=fmt(0,dec);
+    requestAnimationFrame(step);
+  });
+}
+function go(i){
+  if(i<0||i>=slides.length)return;
+  slides[cur].classList.remove("active");
+  cur=i;
+  var s=slides[cur];
+  s.classList.add("active");
+  dots.forEach(function(d,k){d.classList.toggle("on",k===cur)});
+  document.getElementById("hud").textContent=(cur+1)+" / "+slides.length;
+  document.getElementById("prog").style.width=(100*cur/(slides.length-1))+"%";
+  animCounters(s);
+}
+document.getElementById("next").onclick=function(){go(cur+1)};
+document.getElementById("prev").onclick=function(){go(cur-1)};
+document.addEventListener("keydown",function(e){
+  if(["ArrowRight","PageDown"," ","Enter"].indexOf(e.key)>=0){e.preventDefault();go(cur+1)}
+  else if(["ArrowLeft","PageUp"].indexOf(e.key)>=0){e.preventDefault();go(cur-1)}
+  else if(e.key==="Home"){go(0)}
+  else if(e.key==="End"){go(slides.length-1)}
+  else if(e.key==="f"||e.key==="F"){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen()}
+});
+var tx=null;
+document.addEventListener("touchstart",function(e){tx=e.touches[0].clientX});
+document.addEventListener("touchend",function(e){
+  if(tx===null)return;
+  var dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)>60)go(cur+(dx<0?1:-1));
+  tx=null;
+});
+document.addEventListener("click",function(e){
+  if(e.target.closest(".arrow,.dot"))return;
+  go(cur+1);
+});
+var stage=document.getElementById("stage");
+function fit(){
+  var sc=Math.min(window.innerWidth/1920,window.innerHeight/1080);
+  stage.style.transform="translate(-50%,-50%) scale("+sc+")";
+}
+window.addEventListener("resize",fit);
+fit();
+go(0);
+</script>
+</body>
+</html>
